@@ -31,7 +31,7 @@ public class RegisterService {
         if (userRepository.findByEmail(email.toLowerCase()).isPresent()) {
             throw new ApiException("DB-002",
                     "Duplicate entry",
-                    "An account with this email already exists.");
+                    "An account with this email already exists..");
         }
 
         // Create and save new user
