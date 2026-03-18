@@ -1,21 +1,23 @@
 package com.callamechanic.login.service;
 
-import com.callamechanic.user.model.User;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.callamechanic.user.model.User;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+
 @Service
 public class JwtService {
 
-    @Value("${jwt.secret:call-a-mechanic-super-secret-key-256-bits!!!!}")
+    @Value("${jwt.secret:call-a-mechanic-super-secret-key-change-this-in-production!}")
     private String secret;
 
     @Value("${jwt.expiration-ms:86400000}")
@@ -23,6 +25,7 @@ public class JwtService {
 
     public String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("email",    user.getEmail());
         claims.put("role",     user.getRole());
         claims.put("fullName", user.getFullName());
 

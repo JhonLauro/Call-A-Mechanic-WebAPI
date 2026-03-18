@@ -1,15 +1,15 @@
 package com.callamechanic.exception;
 
+import java.time.Instant;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.time.Instant;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -40,8 +40,14 @@ public class GlobalExceptionHandler {
     // Catch-all for unexpected errors
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGeneral(Exception ex) {
+        System.err.println("=== GLOBAL EXCEPTION HANDLER ===");
+        System.err.println("Exception Type: " + ex.getClass().getName());
+        System.err.println("Message: " + ex.getMessage());
+        ex.printStackTrace();
+        System.err.println("=== END EXCEPTION ===");
+        
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                buildError("SYSTEM-001", "Internal server error", null)
+                buildError("SYSTEM-001", "Internal server error", ex.getMessage())
         );
     }
 

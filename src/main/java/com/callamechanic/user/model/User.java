@@ -1,6 +1,11 @@
 package com.callamechanic.user.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
@@ -13,13 +18,13 @@ public class User {
     @Column(nullable = false)
     private String fullName;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
+
+    private String phoneNumber;
 
     @Column(nullable = false)
     private String passwordHash;
-
-    private String phoneNumber;
 
     @Column(nullable = false)
     private String role;
@@ -32,6 +37,9 @@ public class User {
 
     @Column(nullable = false)
     private boolean isActive = true;
+
+    @Column(columnDefinition = "BYTEA")
+    private byte[] photo;
 
     public Long    getId()           { return id;           }
     public String  getFullName()     { return fullName;     }
@@ -50,4 +58,6 @@ public class User {
     public void    setAdminId(String v)      { this.adminId = v;      }
     public boolean isActive()        { return isActive;     }
     public void    setActive(boolean v)      { this.isActive = v;     }
+    public byte[]  getPhoto()        { return photo;        }
+    public void    setPhoto(byte[] v)        { this.photo = v;        }
 }
