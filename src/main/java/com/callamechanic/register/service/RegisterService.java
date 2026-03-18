@@ -1,12 +1,13 @@
 package com.callamechanic.register.service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.callamechanic.exception.ApiException;
 import com.callamechanic.login.service.JwtService;
 import com.callamechanic.register.dto.RegisterResponseDTO;
 import com.callamechanic.user.model.User;
 import com.callamechanic.user.repository.UserRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 @Service
 public class RegisterService {

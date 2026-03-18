@@ -1,13 +1,14 @@
 package com.callamechanic.login.service;
 
+import java.util.regex.Pattern;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.callamechanic.exception.ApiException;
 import com.callamechanic.login.dto.LoginResponseDTO;
 import com.callamechanic.user.model.User;
 import com.callamechanic.user.repository.UserRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import java.util.regex.Pattern;
 
 @Service
 public class LoginService {

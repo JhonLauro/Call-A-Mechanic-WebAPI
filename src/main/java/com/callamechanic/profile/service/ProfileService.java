@@ -1,5 +1,8 @@
 package com.callamechanic.profile.service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.callamechanic.exception.ApiException;
 import com.callamechanic.profile.dto.EditPasswordRequestDTO;
 import com.callamechanic.profile.dto.EditProfileRequestDTO;
@@ -7,8 +10,6 @@ import com.callamechanic.profile.dto.ProfileResponseDTO;
 import com.callamechanic.profile.dto.UploadPhotoResponseDTO;
 import com.callamechanic.user.model.User;
 import com.callamechanic.user.repository.UserRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 @Service
 public class ProfileService {
