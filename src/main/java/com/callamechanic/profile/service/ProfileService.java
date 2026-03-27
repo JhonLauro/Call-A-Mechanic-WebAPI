@@ -1,5 +1,7 @@
 package com.callamechanic.profile.service;
 
+import java.util.Base64;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,13 @@ public class ProfileService {
                         "User not found",
                         "The user with the provided ID does not exist."));
 
+        // Convert photo to base64 data URL
+        String photoUrl = null;
+        if (user.getPhoto() != null) {
+            String base64Image = Base64.getEncoder().encodeToString(user.getPhoto());
+            photoUrl = "data:image/jpeg;base64," + base64Image;
+        }
+
         return new ProfileResponseDTO(
                 user.getId(),
                 user.getFullName(),
@@ -41,7 +50,8 @@ public class ProfileService {
                 user.getMechanicId(),
                 user.getAdminId(),
                 user.isActive(),
-                user.getPhoto() != null
+                user.getPhoto() != null,
+                photoUrl
         );
     }
 
@@ -59,6 +69,13 @@ public class ProfileService {
 
         User updatedUser = userRepository.save(user);
 
+        // Convert photo to base64 data URL
+        String photoUrl = null;
+        if (updatedUser.getPhoto() != null) {
+            String base64Image = Base64.getEncoder().encodeToString(updatedUser.getPhoto());
+            photoUrl = "data:image/jpeg;base64," + base64Image;
+        }
+
         return new ProfileResponseDTO(
                 updatedUser.getId(),
                 updatedUser.getFullName(),
@@ -68,7 +85,8 @@ public class ProfileService {
                 updatedUser.getMechanicId(),
                 updatedUser.getAdminId(),
                 updatedUser.isActive(),
-                updatedUser.getPhoto() != null
+                updatedUser.getPhoto() != null,
+                photoUrl
         );
     }
 
@@ -126,9 +144,32 @@ public class ProfileService {
         user.setPhoto(photoData);
         userRepository.save(user);
 
+        // Convert photo to base64 data URL for immediate display
+        String base64Image = Base64.getEncoder().encodeToString(photoData);
+        String photoUrl = "data:image/jpeg;base64," + base64Image;
+
         return new UploadPhotoResponseDTO(
                 "Photo uploaded successfully",
-                user.getId()
+                user.getId(),
+                photoUrl
         );
+    }
+
+    /**
+     * Get user photo by user ID (optional - for future use)
+     */
+    public byte[] getPhoto(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ApiException("USER-001",
+                        "User not found",
+                        "The user with the provided ID does not exist."));
+
+        if (user.getPhoto() == null) {
+            throw new ApiException("FILE-004",
+                    "Photo not found",
+                    "This user has not uploaded a profile photo yet.");
+        }
+
+        return user.getPhoto();
     }
 }

@@ -6,11 +6,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +31,6 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/profile")
-@CrossOrigin(origins = "http://localhost:5173")
 public class ProfileController {
 
     private final ProfileService profileService;
@@ -145,6 +145,19 @@ public class ProfileController {
                     "Upload failed",
                     "An error occurred while uploading the photo: " + ex.getMessage());
         }
+    }
+
+    /**
+     * Get user photo by ID
+     * GET /api/v1/profile/photo/{userId}
+     */
+    @GetMapping("/photo/{userId}")
+    public ResponseEntity<byte[]> getPhoto(@PathVariable Long userId) {
+        byte[] photoData = profileService.getPhoto(userId);
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(photoData);
     }
 
     /**

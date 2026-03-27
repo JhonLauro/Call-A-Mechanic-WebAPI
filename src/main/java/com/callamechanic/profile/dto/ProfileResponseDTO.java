@@ -11,12 +11,13 @@ public class ProfileResponseDTO {
     private String adminId;
     private boolean isActive;
     private boolean hasPhoto;
+    private String photoUrl;
 
     public ProfileResponseDTO() {}
 
     public ProfileResponseDTO(Long id, String fullName, String email, String phoneNumber,
                               String role, String mechanicId, String adminId,
-                              boolean isActive, boolean hasPhoto) {
+                              boolean isActive, boolean hasPhoto, String photoUrl) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
@@ -26,6 +27,7 @@ public class ProfileResponseDTO {
         this.adminId = adminId;
         this.isActive = isActive;
         this.hasPhoto = hasPhoto;
+        this.photoUrl = photoUrl;
     }
 
     public Long getId() { return id; }
@@ -54,4 +56,7 @@ public class ProfileResponseDTO {
 
     public boolean isHasPhoto() { return hasPhoto; }
     public void setHasPhoto(boolean hasPhoto) { this.hasPhoto = hasPhoto; }
+
+    public String getPhotoUrl() { return photoUrl; }
+    public void setPhotoUrl(String photoUrl) { this.photoUrl = photoUrl; }
 }

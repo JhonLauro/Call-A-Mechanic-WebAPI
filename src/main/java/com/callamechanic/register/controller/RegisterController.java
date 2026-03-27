@@ -1,20 +1,24 @@
 package com.callamechanic.register.controller;
 
-import com.callamechanic.register.dto.RegisterRequestDTO;
-import com.callamechanic.register.dto.RegisterResponseDTO;
-import com.callamechanic.register.service.RegisterService;
-import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.time.Instant;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.callamechanic.register.dto.RegisterRequestDTO;
+import com.callamechanic.register.dto.RegisterResponseDTO;
+import com.callamechanic.register.service.RegisterService;
+
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/auth")
-@CrossOrigin(origins = "http://localhost:5173")
 public class RegisterController {
 
     private final RegisterService registerService;
