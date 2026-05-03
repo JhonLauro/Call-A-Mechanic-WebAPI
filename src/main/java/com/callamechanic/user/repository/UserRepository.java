@@ -9,6 +9,11 @@ import com.callamechanic.user.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
+    Optional<User> findFirstByEmailIgnoreCaseOrMechanicIdIgnoreCaseOrAdminIdIgnoreCase(
+            String email,
+            String mechanicId,
+            String adminId
+    );
     Optional<User> findByMechanicId(String mechanicId);
     Optional<User> findByAdminId(String adminId);
     boolean existsByEmail(String email);
